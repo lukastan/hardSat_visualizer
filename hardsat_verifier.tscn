@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://durg1wyvi5y2u"]
+
+[ext_resource type="Script" uid="uid://66n4vby64sdm" path="res://graph_edit.gd" id="1_xv133"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_xv133")
