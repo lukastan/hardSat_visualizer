@@ -1,47 +1,47 @@
 {
   "edges": [
-    [
-      0,
-      1
-    ],
-    [
-      1,
-      3
-    ],
-    [
-      2,
-      3
-    ],
-    [
-      3,
-      4
-    ]
+	[
+	  0,
+	  1
+	],
+	[
+	  1,
+	  3
+	],
+	[
+	  2,
+	  3
+	],
+	[
+	  3,
+	  4
+	]
   ],
   "nodes": [
-    {
-      "id": 0,
-      "label": "p",
-      "type": "input"
-    },
-    {
-      "id": 1,
-      "label": "NOT",
-      "type": "gate"
-    },
-    {
-      "id": 2,
-      "label": "q",
-      "type": "input"
-    },
-    {
-      "id": 3,
-      "label": "OR",
-      "type": "gate"
-    },
-    {
-      "id": 4,
-      "label": "OUT",
-      "type": "output"
-    }
+	{
+	  "id": 0,
+	  "label": "p",
+	  "type": "input"
+	},
+	{
+	  "id": 1,
+	  "label": "NOT",
+	  "type": "gate"
+	},
+	{
+	  "id": 2,
+	  "label": "q",
+	  "type": "input"
+	},
+	{
+	  "id": 3,
+	  "label": "OR",
+	  "type": "gate"
+	},
+	{
+	  "id": 4,
+	  "label": "OUT",
+	  "type": "output"
+	}
   ]
 }

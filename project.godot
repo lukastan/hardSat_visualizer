@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="HardSAT visualizer"
-run/main_scene="uid://durg1wyvi5y2u"
-config/features=PackedStringArray("4.5", "Forward Plus")
+run/main_scene="uid://c4yg1cd3qaqfv"
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [rendering]
