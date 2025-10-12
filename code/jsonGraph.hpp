@@ -36,36 +36,56 @@ bool is(const FormulaPtr& f) { return std::holds_alternative<T>(*f); }
 template<typename T>
 T as(const FormulaPtr& f) { return std::get<T>(*f); }
 
-using Valuation = std::map<std::string, bool>;
-
 struct JsonGraph {
     int nextId = 0;
-    std::map<std::string,int> atomIds;
-    json j = { {"nodes", json::array()}, {"edges", json::array()} };
+    std::map<std::string, int> atomIds;
+    std::map<int, int> dist;
+    json j = {{"nodes", json::array()}, {"edges", json::array()} };
+
+    void calc_dist(int out_id) {
+        std::map<int, std::vector<int>> neighbours;
+        for(auto &edge : j["edges"]) {
+            int src = edge[0];
+            int dist = edge[1];
+            neighbours[dist].push_back(src);
+        }
+
+        dist[out_id] = 0;
+        std::vector<int> vec;
+        vec.push_back(out_id);
+
+        int i;
+        while(!vec.empty()) {
+            int current = vec.back();
+            vec.pop_back();
+            i = dist[current];
+            for (int neighbour : neighbours[current]) {
+                if(!dist.count(neighbour) || j["nodes"][neighbour]["type"] == "input") {
+                    dist[neighbour] = i + 1;
+                    vec.push_back(neighbour);
+                }
+            }
+        }
+
+        for(auto &node : j["nodes"]) {
+            int id = node["id"];
+            if(dist.count(id))
+                node["dist"] = dist[id];
+            else
+                node["dist"] = -1;
+        }
+    }
 
     int add_node(const std::string &label, const std::string &type) {
         int id = nextId++;
-        j["nodes"].push_back({{"id", id}, {"label", label}, {"type", type}});
+        json node = {{"id", id}, {"label", label}, {"type", type}};
+        j["nodes"].push_back(node);
         return id;
     }
 
     int from_formula(const FormulaPtr &f) {
         if (is<Atom>(f)) {
             std::string name = as<Atom>(f).name;
-            if (atomIds.count(name)) return atomIds[name];
-            int id = add_node(name, "input");
-            atomIds[name] = id;
-            return id;
-        }
-        if (is<False>(f)) {
-            std::string name = "F";
-            if (atomIds.count(name)) return atomIds[name];
-            int id = add_node(name, "input");
-            atomIds[name] = id;
-            return id;
-        }
-        if (is<True>(f)) {
-            std::string name = "T";
             if (atomIds.count(name)) return atomIds[name];
             int id = add_node(name, "input");
             atomIds[name] = id;
@@ -93,8 +113,8 @@ struct JsonGraph {
             j["edges"].push_back({R, id});
             return id;
         }
-        if (is<True>(f)) return add_node("1", "input");
-        if (is<False>(f)) return add_node("0", "input");
+        if (is<True>(f)) return add_node("T", "input");
+        if (is<False>(f)) return add_node("F", "input");
         return -1;
     }
 
@@ -102,6 +122,8 @@ struct JsonGraph {
         int root = from_formula(f);
         int out = add_node("OUT", "output");
         j["edges"].push_back({root, out});
+
+        calc_dist(out);
         return j;
     }
 };

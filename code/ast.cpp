@@ -1,5 +1,7 @@
 #include "jsonGraph.hpp"
 
+using Valuation = std::map<std::string, bool>;
+
 std::string print(const FormulaPtr& f) {
     if(is<False>(f)) return "F";
     if(is<True>(f))  return "T";

@@ -19,26 +19,31 @@
   ],
   "nodes": [
 	{
+	  "dist": 3,
 	  "id": 0,
 	  "label": "p",
 	  "type": "input"
 	},
 	{
+	  "dist": 2,
 	  "id": 1,
 	  "label": "NOT",
 	  "type": "gate"
 	},
 	{
+	  "dist": 2,
 	  "id": 2,
 	  "label": "q",
 	  "type": "input"
 	},
 	{
+	  "dist": 1,
 	  "id": 3,
 	  "label": "OR",
 	  "type": "gate"
 	},
 	{
+	  "dist": 0,
 	  "id": 4,
 	  "label": "OUT",
 	  "type": "output"
