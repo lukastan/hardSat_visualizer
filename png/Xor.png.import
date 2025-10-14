@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu1fskguhlya3"
-path="res://.godot/imported/Nor.webp-ff798fcd546dc3734e5b10817534533c.ctex"
+uid="uid://crpd68xmjp3d2"
+path="res://.godot/imported/Xor.png-7a9a74b2149a86d9e586787243a1f030.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Webp/Nor.webp"
-dest_files=["res://.godot/imported/Nor.webp-ff798fcd546dc3734e5b10817534533c.ctex"]
+source_file="res://png/Xor.png"
+dest_files=["res://.godot/imported/Xor.png-7a9a74b2149a86d9e586787243a1f030.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c22wr2na426lm"
-path="res://.godot/imported/BLines.webp-575eee3f9c2660abb9c0114bf1a0b435.ctex"
+uid="uid://rrbea13iveiu"
+path="res://.godot/imported/And.webp-d708b05540814fda3ee1770563f222e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Webp/BLines.webp"
-dest_files=["res://.godot/imported/BLines.webp-575eee3f9c2660abb9c0114bf1a0b435.ctex"]
+source_file="res://webp/And.webp"
+dest_files=["res://.godot/imported/And.webp-d708b05540814fda3ee1770563f222e8.ctex"]
 
 [params]
 

@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4yg1cd3qaqfv"]
+[gd_scene load_steps=4 format=3 uid="uid://c4yg1cd3qaqfv"]
 
 [ext_resource type="Script" uid="uid://d0ng7gea0scib" path="res://code/main.gd" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://ogv4tqu7451q" path="res://png/verifier_background.png" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://dd82lcysnp03m" path="res://sprite_2d.gd" id="3_epypp"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0e48y")
+script = ExtResource("3_epypp")
+
+[node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("1_wtcfe")

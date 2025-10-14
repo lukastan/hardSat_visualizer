@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yk4imdom1pxf"
-path="res://.godot/imported/Nand.png-d8737ef33239ea8d20252e90229e247a.ctex"
+uid="uid://d2adrw2fc0r40"
+path="res://.godot/imported/Nand.webp-a6f5d276b232c9db2bcd33e26f353669.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://PNG/Nand.png"
-dest_files=["res://.godot/imported/Nand.png-d8737ef33239ea8d20252e90229e247a.ctex"]
+source_file="res://webp/Nand.webp"
+dest_files=["res://.godot/imported/Nand.webp-a6f5d276b232c9db2bcd33e26f353669.ctex"]
 
 [params]
 

@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var font : Font = preload("res://fonts/times.ttf")
+
 var file_dialog: FileDialog
 
 var nodes = []
@@ -14,37 +16,26 @@ var xor_tex: Texture2D
 
 var nodes_per_dist = []
 
-func _custom_draw_circle(node):
-	var res1 = randf()
-	var res2 = randf()
-	var res3 = randf()
-	var color = Color(res1, res2, res2)
-	
-	var size = 15.0
-	if(node["type"] == "output"):
-		size += size
-	
-	#draw_circle(pos, size, color, true)
-
 func _custom_draw_line(start_id, end_id):
 	var start_pos = nodes[start_id]["pos"]
 	var end_pos = nodes[end_id]["pos"]
 
 	if(nodes[start_id]["type"] == "gate"):
-		start_pos = nodes[start_id]["pos"] + Vector2(and_tex.get_width(), and_tex.get_height()/2)
+		start_pos = nodes[start_id]["pos"] + Vector2(and_tex.get_width(), and_tex.get_height() * 0.5)
 	if(nodes[start_id]["label"] == "NOT"):
-		start_pos = nodes[start_id]["pos"] + Vector2(not_tex.get_width(), not_tex.get_height()/2)
+		start_pos = nodes[start_id]["pos"] + Vector2(not_tex.get_width(), not_tex.get_height() * 0.5)
 	
 	if(nodes[end_id]["type"] == "gate"):
-		end_pos = nodes[end_id]["pos"] + Vector2(0, and_tex.get_height()/4)
+		end_pos = nodes[end_id]["pos"] + Vector2(10, and_tex.get_height() * 0.25)
 		if(nodes[end_id]["used"]):
-			end_pos = end_pos + Vector2(0, and_tex.get_height()/2)
+			end_pos = end_pos + Vector2(0, and_tex.get_height() * 0.5)
 		nodes[end_id]["used"] = true
 	
 	if(nodes[end_id]["label"] == "NOT"):
-		end_pos = nodes[end_id]["pos"] + Vector2(0, not_tex.get_height()/2)
+		end_pos = nodes[end_id]["pos"] + Vector2(0, not_tex.get_height() * 0.5)
 
-	var rand_x = randi_range(start_pos[0], end_pos[0])
+	var dif = (end_pos[0]-start_pos[0])/5
+	var rand_x = randi_range(start_pos[0] + dif, end_pos[0] - dif)
 	draw_line(start_pos, Vector2(rand_x, start_pos[1]), Color.BLACK, 5)
 	draw_line(Vector2(rand_x, start_pos[1]), Vector2(rand_x, end_pos[1]), Color.BLACK, 5)
 	draw_line(Vector2(rand_x, end_pos[1]), end_pos, Color.BLACK, 5)
@@ -105,7 +96,7 @@ func _draw():
 				counter_y = 1
 			
 			pos = Vector2(counter_x*screen_size.x/(n+1), counter_y*screen_size.y/(nodes_per_dist[counter_x-1]+1))
-			node["pos"] = pos
+			node["pos"] = pos * 1.0
 			counter_y = counter_y + 1
 			
 			if(node["type"] == "gate"):
@@ -123,19 +114,24 @@ func _draw():
 					"XOR":
 						draw_texture(xor_tex, node["pos"])
 			else:
-				_custom_draw_circle(node)
-				draw_string(ThemeDB.fallback_font, node["pos"], node["label"], HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color.WHITE)
+				var ofset = Vector2(0, 5)
+				if(node["type"] == "input"):
+					ofset -= Vector2(15, 0)
+				else:
+					ofset += Vector2(10, 0)
+				draw_string(font, node["pos"] + ofset, node["label"], HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color.BLACK)
 		
 	for edge in edges:
 		_custom_draw_line(edge[0], edge[1])
 
 func _ready():
-	and_tex = load("res://PNG/And.png")
-	or_tex = load("res://PNG/Or.png")
-	nand_tex = load("res://PNG/Nand.png")
-	nor_tex = load("res://PNG/Nor.png")
-	not_tex = load("res://PNG/Not.png")
-	xor_tex = load("res://PNG/Xor.png")
+	var png_path = "res://png/"
+	and_tex = load(png_path + "And.png")
+	or_tex = load(png_path + "Or.png")
+	nand_tex = load(png_path + "Nand.png")
+	nor_tex = load(png_path + "Nor.png")
+	not_tex = load(png_path + "Not.png")
+	xor_tex = load(png_path + "Xor.png")
 	
 	file_dialog = FileDialog.new()
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM

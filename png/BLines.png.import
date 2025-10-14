@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0ehtugkgf8dj"
-path="res://.godot/imported/Nand.png-ff92469e5edcd6d082d1e7b29fa39bc6.ctex"
+uid="uid://clgqaiyd5xqml"
+path="res://.godot/imported/BLines.png-f3cee2d9050ffbffbf165a89be941d60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Nand.png"
-dest_files=["res://.godot/imported/Nand.png-ff92469e5edcd6d082d1e7b29fa39bc6.ctex"]
+source_file="res://png/BLines.png"
+dest_files=["res://.godot/imported/BLines.png-f3cee2d9050ffbffbf165a89be941d60.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccxwgu1miyfa6"
-path="res://.godot/imported/Nor.png-d43b0bbba462a780a5437bd6337c4542.ctex"
+uid="uid://ogv4tqu7451q"
+path="res://.godot/imported/verifier_background.png-7aa1441745be14d576806d58a4e18c83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Nor.png"
-dest_files=["res://.godot/imported/Nor.png-d43b0bbba462a780a5437bd6337c4542.ctex"]
+source_file="res://png/verifier_background.png"
+dest_files=["res://.godot/imported/verifier_background.png-7aa1441745be14d576806d58a4e18c83.ctex"]
 
 [params]
 

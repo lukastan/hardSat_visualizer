@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://31w22y54wamo"
-path="res://.godot/imported/And.png-176f77ba10a05863102e746c7139b290.ctex"
+uid="uid://bu325n4trloav"
+path="res://.godot/imported/ULines.png-0032786f3023c5ee99d30b32a5f6eb10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://PNG/And.png"
-dest_files=["res://.godot/imported/And.png-176f77ba10a05863102e746c7139b290.ctex"]
+source_file="res://png/ULines.png"
+dest_files=["res://.godot/imported/ULines.png-0032786f3023c5ee99d30b32a5f6eb10.ctex"]
 
 [params]
 
