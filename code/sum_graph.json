@@ -1,0 +1,174 @@
+{
+    "edges": [
+        [
+            0,
+            2
+        ],
+        [
+            1,
+            2
+        ],
+        [
+            2,
+            4
+        ],
+        [
+            3,
+            4
+        ],
+        [
+            0,
+            5
+        ],
+        [
+            1,
+            5
+        ],
+        [
+            0,
+            6
+        ],
+        [
+            1,
+            6
+        ],
+        [
+            6,
+            7
+        ],
+        [
+            3,
+            7
+        ],
+        [
+            5,
+            8
+        ],
+        [
+            7,
+            8
+        ],
+        [
+            8,
+            9
+        ],
+        [
+            4,
+            10
+        ],
+        [
+            9,
+            10
+        ],
+        [
+            0,
+            11
+        ],
+        [
+            1,
+            11
+        ],
+        [
+            11,
+            12
+        ],
+        [
+            3,
+            12
+        ],
+        [
+            10,
+            13
+        ],
+        [
+            12,
+            13
+        ]
+    ],
+    "nodes": [
+        {
+            "dist": 0,
+            "id": 0,
+            "label": "A",
+            "type": "input"
+        },
+        {
+            "dist": 0,
+            "id": 1,
+            "label": "B",
+            "type": "input"
+        },
+        {
+            "dist": 1,
+            "id": 2,
+            "label": "OR",
+            "type": "gate"
+        },
+        {
+            "dist": 0,
+            "id": 3,
+            "label": "CIN",
+            "type": "input"
+        },
+        {
+            "dist": 2,
+            "id": 4,
+            "label": "OR",
+            "type": "gate"
+        },
+        {
+            "dist": 1,
+            "id": 5,
+            "label": "AND",
+            "type": "gate"
+        },
+        {
+            "dist": 1,
+            "id": 6,
+            "label": "OR",
+            "type": "gate"
+        },
+        {
+            "dist": 2,
+            "id": 7,
+            "label": "AND",
+            "type": "gate"
+        },
+        {
+            "dist": 2,
+            "id": 8,
+            "label": "OR",
+            "type": "gate"
+        },
+        {
+            "dist": 3,
+            "id": 9,
+            "label": "NOT",
+            "type": "gate"
+        },
+        {
+            "dist": 3,
+            "id": 10,
+            "label": "AND",
+            "type": "gate"
+        },
+        {
+            "dist": 1,
+            "id": 11,
+            "label": "AND",
+            "type": "gate"
+        },
+        {
+            "dist": 2,
+            "id": 12,
+            "label": "AND",
+            "type": "gate"
+        },
+        {
+            "dist": 4,
+            "id": 13,
+            "label": "OR",
+            "type": "gate"
+        }
+    ]
+}

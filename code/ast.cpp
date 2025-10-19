@@ -39,15 +39,31 @@ bool evaluate(const FormulaPtr& f, Valuation& v) {
 }
 
 int main() {
-    FormulaPtr p = ptr(Atom{"p"});
-    FormulaPtr q = ptr(Atom{"q"});
-    FormulaPtr formula = ptr(Binary{Binary::Or, ptr(Not{p}), q});
-
-    std::cout << print(formula) << std::endl;
-
+    FormulaPtr A = ptr(Atom{"A"});
+    FormulaPtr B = ptr(Atom{"B"});
+    FormulaPtr CIN = ptr(Atom{"CIN"});
+    
+    //COUT
+    FormulaPtr OR1 = ptr(Binary{Binary::Or, ptr(Atom{"A"}), ptr(Atom{"B"})});
+    FormulaPtr AND1 = ptr(Binary{Binary::And, ptr(Atom{"A"}), ptr(Atom{"B"})});
+    FormulaPtr AND2 = ptr(Binary{Binary::And, OR1, CIN});
+    FormulaPtr COUT = ptr(Binary{Binary::Or, AND1, AND2});
+    
+    //SUM
+    FormulaPtr OR2 = ptr(Binary{Binary::Or, A, B});
+    FormulaPtr AND3 = ptr(Binary{Binary::And, A, B});
+    FormulaPtr multiOR = ptr(Binary{Binary::Or, OR2, CIN});
+    FormulaPtr multiAND = ptr(Binary{Binary::And, AND3, CIN});
+    FormulaPtr AND4 = ptr(Binary{Binary::And, multiOR, ptr(Not{COUT})});
+    FormulaPtr SUM = ptr(Binary{Binary::Or, AND4, multiAND});
+    
     JsonGraph g;
-    auto data = g.to_json(formula);
-    std::ofstream("graph.json") << data.dump(2);
+    std::cout << print(COUT) << std::endl;
+    std::cout << print(SUM) << std::endl;
+    auto sum_data = g.to_json(SUM);
+    auto cout_data = g.to_json(COUT);
+    std::ofstream("sum_graph.json") << sum_data.dump(4);
+    std::ofstream("cout_graph.json") << cout_data.dump(4);
 
     return 0;
 }

@@ -16,23 +16,23 @@ var xor_tex: Texture2D
 
 var nodes_per_dist = []
 
-func _custom_draw_line(start_id, end_id):
-	var start_pos = nodes[start_id]["pos"]
-	var end_pos = nodes[end_id]["pos"]
+func _custom_draw_line(start_node, end_node):
+	var start_pos = start_node["pos"]
+	var end_pos = end_node["pos"]
 
-	if(nodes[start_id]["type"] == "gate"):
-		start_pos = nodes[start_id]["pos"] + Vector2(and_tex.get_width(), and_tex.get_height() * 0.5)
-	if(nodes[start_id]["label"] == "NOT"):
-		start_pos = nodes[start_id]["pos"] + Vector2(not_tex.get_width(), not_tex.get_height() * 0.5)
+	if(start_node["type"] == "gate"):
+		start_pos = start_node["pos"] + Vector2(and_tex.get_width(), and_tex.get_height() * 0.5)
+	if(start_node["label"] == "NOT"):
+		start_pos = start_node["pos"] + Vector2(not_tex.get_width(), not_tex.get_height() * 0.5)
 	
-	if(nodes[end_id]["type"] == "gate"):
-		end_pos = nodes[end_id]["pos"] + Vector2(10, and_tex.get_height() * 0.25)
-		if(nodes[end_id]["used"]):
+	if(end_node["type"] == "gate"):
+		end_pos = end_node["pos"] + Vector2(5, and_tex.get_height() * 0.25)
+		if(end_node["used"]):
 			end_pos = end_pos + Vector2(0, and_tex.get_height() * 0.5)
-		nodes[end_id]["used"] = true
+		end_node["used"] = true
 	
-	if(nodes[end_id]["label"] == "NOT"):
-		end_pos = nodes[end_id]["pos"] + Vector2(0, not_tex.get_height() * 0.5)
+	if(end_node["label"] == "NOT"):
+		end_pos = end_node["pos"] + Vector2(0, not_tex.get_height() * 0.5)
 
 	var dif = (end_pos[0]-start_pos[0])/5
 	var rand_x = randi_range(start_pos[0] + dif, end_pos[0] - dif)
@@ -59,15 +59,15 @@ func _on_file_selected(path: String):
 		
 	var data = result.data
 	# print("Our data: ", data)
-	
-	if data.has("edges"):
-		edges = data["edges"]
-	
-	if data.has("nodes"):
-		nodes = data["nodes"]
-		nodes.sort_custom(func(a, b):
-			return a.get("dist", -1) > b.get("dist", -1)
+	if data.has("edges") && data.has("nodes"):
+		var indices = range(data["nodes"].size())
+		indices.sort_custom(func(a, b):
+			return data["nodes"][a].get("dist", -1) < data["nodes"][b].get("dist", -1)
 		)
+		for i in indices:
+			nodes.append(data["nodes"][i])
+			edges.append(data["edges"][i])
+			
 		var start_node = nodes.front()
 		var counter = 0;
 		for node in nodes:
@@ -121,8 +121,12 @@ func _draw():
 					ofset += Vector2(10, 0)
 				draw_string(font, node["pos"] + ofset, node["label"], HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color.BLACK)
 		
+	var nodes_by_id = {}
+	for node in nodes:
+		nodes_by_id[node["id"]] = node	
+	
 	for edge in edges:
-		_custom_draw_line(edge[0], edge[1])
+		_custom_draw_line(nodes_by_id[edge[0]], nodes_by_id[edge[1]])
 
 func _ready():
 	var png_path = "res://png/"

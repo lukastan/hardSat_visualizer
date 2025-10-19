@@ -41,44 +41,34 @@ struct JsonGraph {
     std::map<std::string, int> atomIds;
     std::map<int, int> dist;
     json j = {{"nodes", json::array()}, {"edges", json::array()} };
+    std::map<int, std::vector<int>> neighbours;
 
-    void calc_dist(int out_id) {
-        std::map<int, std::vector<int>> neighbours;
-        for(auto &edge : j["edges"]) {
-            int src = edge[0];
-            int dist = edge[1];
-            neighbours[dist].push_back(src);
-        }
-
-        dist[out_id] = 0;
-        std::vector<int> vec;
-        vec.push_back(out_id);
-
-        int i;
-        while(!vec.empty()) {
-            int current = vec.back();
-            vec.pop_back();
-            i = dist[current];
-            for (int neighbour : neighbours[current]) {
-                if(!dist.count(neighbour) || j["nodes"][neighbour]["type"] == "input") {
-                    dist[neighbour] = i + 1;
-                    vec.push_back(neighbour);
-                }
+    void calc_dist_rec(int id, int counter) {
+        for(auto neigh : neighbours[id]) {
+            if(j["nodes"][neigh]["dist"] == -1) {
+                j["nodes"][neigh]["dist"] = counter + 1;
+                calc_dist_rec(neigh, counter + 1);
             }
         }
+    }
 
+    void calc_dist() {
+        for(auto &edge : j["edges"]) {
+            int src = edge[0];
+            int dest = edge[1];
+            neighbours[src].push_back(dest);
+        }
         for(auto &node : j["nodes"]) {
-            int id = node["id"];
-            if(dist.count(id))
-                node["dist"] = dist[id];
-            else
-                node["dist"] = -1;
+            if(node["type"] == "input") {
+                node["dist"] = 0;
+                calc_dist_rec(node["id"], 0);
+            }
         }
     }
 
     int add_node(const std::string &label, const std::string &type) {
         int id = nextId++;
-        json node = {{"id", id}, {"label", label}, {"type", type}};
+        json node = {{"id", id}, {"label", label}, {"type", type}, {"dist", -1}};
         j["nodes"].push_back(node);
         return id;
     }
@@ -120,10 +110,8 @@ struct JsonGraph {
 
     json to_json(const FormulaPtr &f) {
         int root = from_formula(f);
-        int out = add_node("OUT", "output");
-        j["edges"].push_back({root, out});
+        calc_dist();
 
-        calc_dist(out);
         return j;
     }
 };
