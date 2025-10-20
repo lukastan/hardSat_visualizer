@@ -59,14 +59,16 @@ func _on_file_selected(path: String):
 		
 	var data = result.data
 	# print("Our data: ", data)
-	if data.has("edges") && data.has("nodes"):
+	if data.has("edges"):
+		edges = data["edges"]
+	
+	if data.has("nodes"):
 		var indices = range(data["nodes"].size())
 		indices.sort_custom(func(a, b):
-			return data["nodes"][a].get("dist", -1) < data["nodes"][b].get("dist", -1)
+			return data["nodes"][a].get("dist", -1) > data["nodes"][b].get("dist", -1)
 		)
 		for i in indices:
 			nodes.append(data["nodes"][i])
-			edges.append(data["edges"][i])
 			
 		var start_node = nodes.front()
 		var counter = 0;
@@ -126,6 +128,7 @@ func _draw():
 		nodes_by_id[node["id"]] = node	
 	
 	for edge in edges:
+		print(edge)
 		_custom_draw_line(nodes_by_id[edge[0]], nodes_by_id[edge[1]])
 
 func _ready():

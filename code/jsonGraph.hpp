@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <unordered_map>
 
 #include "json.hpp"
 
@@ -37,60 +38,57 @@ template<typename T>
 T as(const FormulaPtr& f) { return std::get<T>(*f); }
 
 struct JsonGraph {
-    int nextId = 0;
-    std::map<std::string, int> atomIds;
-    std::map<int, int> dist;
+    int nextId = 1;
     json j = {{"nodes", json::array()}, {"edges", json::array()} };
-    std::map<int, std::vector<int>> neighbours;
 
-    void calc_dist_rec(int id, int counter) {
-        for(auto neigh : neighbours[id]) {
-            if(j["nodes"][neigh]["dist"] == -1) {
-                j["nodes"][neigh]["dist"] = counter + 1;
-                calc_dist_rec(neigh, counter + 1);
-            }
-        }
-    }
+    std::unordered_map<const Formula*, int> gateIds;
+    std::unordered_map<std::string, int> inputIds;
 
-    void calc_dist() {
-        for(auto &edge : j["edges"]) {
-            int src = edge[0];
-            int dest = edge[1];
-            neighbours[src].push_back(dest);
-        }
-        for(auto &node : j["nodes"]) {
-            if(node["type"] == "input") {
-                node["dist"] = 0;
-                calc_dist_rec(node["id"], 0);
-            }
-        }
-    }
-
-    int add_node(const std::string &label, const std::string &type) {
-        int id = nextId++;
-        json node = {{"id", id}, {"label", label}, {"type", type}, {"dist", -1}};
+    void add_node(const std::string &label, const std::string &type, int id, int dist) {
+        json node = {{"id", id}, {"label", label}, {"type", type}, {"dist", dist}};
         j["nodes"].push_back(node);
+    }
+
+    int ensure_input(const std::string &name, int dist) {
+        auto it = inputIds.find(name);
+        if (it != inputIds.end())
+            return it->second;
+
+        int id = nextId++;
+        inputIds[name] = id;
+        add_node(name, "input", id, dist);
         return id;
     }
 
-    int from_formula(const FormulaPtr &f) {
+    int ensure_gate(const FormulaPtr &f, const std::string &label, int dist) {
+        const Formula* key = f.get();
+        auto it = gateIds.find(key);
+        if (it != gateIds.end())
+            return it->second;
+
+        int id = nextId++;
+        gateIds[key] = id;
+        add_node(label, "gate", id, dist);
+        return id;
+    }
+
+   void from_formula(const FormulaPtr &f, int parent_id, int dist) {
+        if (!f) return;
+
         if (is<Atom>(f)) {
             std::string name = as<Atom>(f).name;
-            if (atomIds.count(name)) return atomIds[name];
-            int id = add_node(name, "input");
-            atomIds[name] = id;
-            return id;
+            int this_id = ensure_input(name, dist);
+            if (parent_id != 0)
+                j["edges"].push_back({this_id, parent_id});
         }
-        if (is<Not>(f)) {
-            int c = from_formula(as<Not>(f).subformula);
-            int id = add_node("NOT", "gate");
-            j["edges"].push_back({c, id});
-            return id;
+        else if (is<Not>(f)) {
+            int this_id = ensure_gate(f, "NOT", dist);
+            if (parent_id != 0)
+                j["edges"].push_back({this_id, parent_id});
+            from_formula(as<Not>(f).subformula, this_id, dist + 1);
         }
-        if (is<Binary>(f)) {
+        else if (is<Binary>(f)) {
             auto b = as<Binary>(f);
-            int L = from_formula(b.left);
-            int R = from_formula(b.right);
             std::string label;
             switch(b.type) {
                 case Binary::And: label="AND"; break;
@@ -98,19 +96,29 @@ struct JsonGraph {
                 case Binary::Impl: label="IMPL"; break;
                 case Binary::Eq:  label="EQ";  break;
             }
-            int id = add_node(label, "gate");
-            j["edges"].push_back({L, id});
-            j["edges"].push_back({R, id});
-            return id;
+            int this_id = ensure_gate(f, label, dist);
+            if (parent_id != 0)
+                j["edges"].push_back({this_id, parent_id});
+            from_formula(b.left, this_id, dist + 1);
+            from_formula(b.right, this_id, dist + 1);
         }
-        if (is<True>(f)) return add_node("T", "input");
-        if (is<False>(f)) return add_node("F", "input");
-        return -1;
     }
 
     json to_json(const FormulaPtr &f) {
-        int root = from_formula(f);
-        calc_dist();
+        gateIds.clear();
+        inputIds.clear();;
+        j["nodes"].clear();
+        j["edges"].clear();
+        nextId = 1;
+        from_formula(f, 0, 0);
+        int max_dist = 0;
+        for(auto& node : j["nodes"])
+            if(node["dist"] > max_dist)
+                max_dist = node["dist"];
+        max_dist++;
+        for(auto& node : j["nodes"])
+            if(node["type"] == "input")
+                node["dist"] = max_dist;
 
         return j;
     }
