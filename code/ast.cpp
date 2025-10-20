@@ -1,6 +1,5 @@
 #include "jsonGraph.hpp"
-
-using Valuation = std::map<std::string, bool>;
+#include <set>
 
 std::string print(const FormulaPtr& f) {
     if(is<False>(f)) return "F";
@@ -18,24 +17,6 @@ std::string print(const FormulaPtr& f) {
         return "(" + print(as<Binary>(f).left) + " " + sign + " " + print(as<Binary>(f).right) + ")";
     }
     return "";
-}
-
-bool evaluate(const FormulaPtr& f, Valuation& v) {
-    if(is<False>(f)) return false;
-    if(is<True>(f))  return true;
-    if(is<Atom>(f))  return v[as<Atom>(f).name];
-    if(is<Not>(f))   return !evaluate(as<Not>(f).subformula, v);
-    if(is<Binary>(f)) {
-        bool L = evaluate(as<Binary>(f).left, v);
-        bool R = evaluate(as<Binary>(f).right, v);
-        switch(as<Binary>(f).type) {
-            case Binary::And:  return L && R;
-            case Binary::Or:   return L || R;
-            case Binary::Impl: return !L || R;
-            case Binary::Eq:   return L == R;
-        }
-    }
-    return false;
 }
 
 int main() {

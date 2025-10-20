@@ -38,43 +38,113 @@
             "dist": 0,
             "id": 1,
             "label": "OR",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                false,
+                false,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true
+            ]
         },
         {
             "dist": 1,
             "id": 2,
             "label": "AND",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 3,
             "id": 3,
             "label": "A",
-            "type": "input"
+            "type": "input",
+            "valuation": [
+                false,
+                true,
+                false,
+                true,
+                false,
+                true,
+                false,
+                true
+            ]
         },
         {
             "dist": 3,
             "id": 4,
             "label": "B",
-            "type": "input"
+            "type": "input",
+            "valuation": [
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true,
+                true
+            ]
         },
         {
             "dist": 1,
             "id": 5,
             "label": "AND",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                false,
+                true,
+                true,
+                false,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 2,
             "id": 6,
             "label": "OR",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 3,
             "id": 7,
             "label": "CIN",
-            "type": "input"
+            "type": "input",
+            "valuation": [
+                false,
+                false,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true
+            ]
         }
     ]
 }

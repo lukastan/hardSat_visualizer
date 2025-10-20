@@ -90,85 +90,225 @@
             "dist": 0,
             "id": 1,
             "label": "OR",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ]
         },
         {
             "dist": 1,
             "id": 2,
             "label": "AND",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                false,
+                true,
+                true,
+                false,
+                false,
+                true,
+                true,
+                false
+            ]
         },
         {
             "dist": 2,
             "id": 3,
             "label": "OR",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                false,
+                true,
+                true,
+                false,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 3,
             "id": 4,
             "label": "OR",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 6,
             "id": 5,
             "label": "A",
-            "type": "input"
+            "type": "input",
+            "valuation": [
+                false,
+                true,
+                false,
+                true,
+                false,
+                true,
+                false,
+                true
+            ]
         },
         {
             "dist": 6,
             "id": 6,
             "label": "B",
-            "type": "input"
+            "type": "input",
+            "valuation": [
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true,
+                true
+            ]
         },
         {
             "dist": 6,
             "id": 7,
             "label": "CIN",
-            "type": "input"
+            "type": "input",
+            "valuation": [
+                false,
+                false,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true
+            ]
         },
         {
             "dist": 2,
             "id": 8,
             "label": "NOT",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ]
         },
         {
             "dist": 3,
             "id": 9,
             "label": "OR",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                false,
+                false,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true
+            ]
         },
         {
             "dist": 4,
             "id": 10,
             "label": "AND",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 4,
             "id": 11,
             "label": "AND",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                false,
+                true,
+                true,
+                false,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 5,
             "id": 12,
             "label": "OR",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 1,
             "id": 13,
             "label": "AND",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                false,
+                true,
+                true,
+                false,
+                true,
+                false,
+                false,
+                true
+            ]
         },
         {
             "dist": 2,
             "id": 14,
             "label": "AND",
-            "type": "gate"
+            "type": "gate",
+            "valuation": [
+                true,
+                false,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true
+            ]
         }
     ]
 }

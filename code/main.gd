@@ -5,7 +5,10 @@ extends Node2D
 var file_dialog: FileDialog
 
 var nodes = []
+var nodes_per_dist = []
 var edges = []
+var val_id = 0
+var val_size
 
 var and_tex: Texture2D
 var or_tex: Texture2D
@@ -14,7 +17,11 @@ var nor_tex: Texture2D
 var not_tex: Texture2D
 var xor_tex: Texture2D
 
-var nodes_per_dist = []
+func _custom_draw_valuation(pos, rad, val):
+	var color = Color.RED
+	if(val):
+		color = Color.GREEN
+	draw_circle(pos, rad, color, true, -1.0, false)
 
 func _custom_draw_line(start_node, end_node):
 	var start_pos = start_node["pos"]
@@ -80,6 +87,9 @@ func _on_file_selected(path: String):
 			counter = counter + 1
 		nodes_per_dist.push_back(counter)
 		
+		var val_array = nodes[0]["valuation"]
+		val_size = val_array.size()
+		
 	queue_redraw()
 
 func _draw():
@@ -102,6 +112,8 @@ func _draw():
 			counter_y = counter_y + 1
 			
 			if(node["type"] == "gate"):
+				var ofset = Vector2(and_tex.get_size()/2)
+				var rad = 20
 				match node["label"]:
 					"AND":
 						draw_texture(and_tex, node["pos"])
@@ -113,22 +125,23 @@ func _draw():
 						draw_texture(nor_tex, node["pos"])
 					"NOT":
 						draw_texture(not_tex, node["pos"])
+						ofset += Vector2(-16, 0)
+						rad = 13
 					"XOR":
 						draw_texture(xor_tex, node["pos"])
+				_custom_draw_valuation(node["pos"] + ofset, rad, node["valuation"][val_id])
 			else:
-				var ofset = Vector2(0, 5)
-				if(node["type"] == "input"):
-					ofset -= Vector2(15, 0)
-				else:
-					ofset += Vector2(10, 0)
-				draw_string(font, node["pos"] + ofset, node["label"], HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color.BLACK)
+				var text_width = font.get_string_size(node["label"]).x
+				var text_ofset = Vector2(-text_width - 10, 5)
+				var val_ofset = Vector2(0, -15)
+				_custom_draw_valuation(node["pos"] + val_ofset, 7, node["valuation"][val_id])
+				draw_string(font, node["pos"] + text_ofset, node["label"], HORIZONTAL_ALIGNMENT_RIGHT, -1, 20, Color.BLACK)
 		
 	var nodes_by_id = {}
 	for node in nodes:
 		nodes_by_id[node["id"]] = node	
 	
 	for edge in edges:
-		print(edge)
 		_custom_draw_line(nodes_by_id[edge[0]], nodes_by_id[edge[1]])
 
 func _ready():
@@ -144,8 +157,25 @@ func _ready():
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialog.filters = ["*.json"]
-	add_child(file_dialog)
+	%CanvasLayer.add_child(file_dialog)
 	
 	file_dialog.file_selected.connect(_on_file_selected)
 	
 	file_dialog.popup_centered()
+
+func _on_back_pressed() -> void:
+	if(val_id > 0):
+		val_id = val_id - 1;
+	else:
+		val_id = val_size - 1
+		
+	queue_redraw()
+
+
+func _on_next_pressed() -> void:
+	if(val_id >= val_size - 1):
+		val_id = 0
+	else:
+		val_id = val_id + 1
+	
+	queue_redraw()
