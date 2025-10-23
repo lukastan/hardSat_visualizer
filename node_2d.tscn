@@ -1,14 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4yg1cd3qaqfv"]
+[gd_scene load_steps=5 format=3 uid="uid://c4yg1cd3qaqfv"]
 
 [ext_resource type="Script" uid="uid://d0ng7gea0scib" path="res://code/main.gd" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://ogv4tqu7451q" path="res://png/verifier_background.png" id="2_0e48y"]
 [ext_resource type="Script" uid="uid://dd82lcysnp03m" path="res://sprite_2d.gd" id="3_epypp"]
+[ext_resource type="Script" uid="uid://ck2kgil4ob878" path="res://control.gd" id="4_0hol4"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_right = 100.0
+anchor_bottom = 100.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("4_0hol4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="Node2D"]
 texture = ExtResource("2_0e48y")
 script = ExtResource("3_epypp")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Graph" type="Node2D" parent="Node2D"]
 script = ExtResource("1_wtcfe")
+
+[node name="Next" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.583
+anchor_right = 0.608
+anchor_bottom = 0.025
+offset_right = 80.0
+offset_bottom = 50.0
+text = "Next"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.383
+anchor_right = 0.407
+anchor_bottom = 0.025
+offset_right = 80.0
+offset_bottom = 50.0
+text = "Back"
+
+[connection signal="pressed" from="Next" to="Node2D/Graph" method="_on_next_pressed"]
+[connection signal="pressed" from="Back" to="Node2D/Graph" method="_on_back_pressed"]
