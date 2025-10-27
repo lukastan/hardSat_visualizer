@@ -188,6 +188,7 @@ NormalForm cnf_rec(const FormulaPtr& f) {
 NormalForm cnf_clean(const NormalForm& cnf) {
     NormalForm cnf_cleaned;
 
+    std::set<Clause> clauses;
     for(auto &c : cnf) {
         std::set<std::pair<std::string, bool>> literals;
         bool taut = false;
@@ -207,8 +208,11 @@ NormalForm cnf_clean(const NormalForm& cnf) {
         Clause new_clause;
         for(auto& [name, pos] : literals)
             new_clause.push_back({pos, name});
-        cnf_cleaned.push_back(new_clause);
+        clauses.insert(new_clause);
     }
+
+    for(Clause clause : clauses)
+        cnf_cleaned.push_back(clause);
 
     return cnf_cleaned;
 }
