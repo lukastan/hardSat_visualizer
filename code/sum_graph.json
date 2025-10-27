@@ -14,75 +14,31 @@
         ],
         [
             5,
-            4
-        ],
-        [
-            6,
-            4
-        ],
-        [
-            7,
             3
         ],
         [
-            8,
+            6,
             2
         ],
         [
-            9,
-            8
-        ],
-        [
-            10,
-            9
-        ],
-        [
-            5,
-            10
-        ],
-        [
-            6,
-            10
-        ],
-        [
-            11,
-            9
-        ],
-        [
-            12,
-            11
-        ],
-        [
-            5,
-            12
-        ],
-        [
-            6,
-            12
+            4,
+            6
         ],
         [
             7,
-            11
+            6
         ],
         [
-            13,
+            8,
             1
         ],
         [
-            14,
-            13
-        ],
-        [
             5,
-            14
-        ],
-        [
-            6,
-            14
+            8
         ],
         [
             7,
-            13
+            8
         ]
     ],
     "nodes": [
@@ -96,38 +52,38 @@
                 true,
                 true,
                 true,
-                false,
-                false,
-                false,
-                false
+                true,
+                true,
+                true,
+                true
             ]
         },
         {
             "dist": 1,
             "id": 2,
-            "label": "AND",
+            "label": "OR",
             "type": "gate",
             "valuation": [
-                false,
                 true,
                 true,
                 false,
                 false,
+                false,
+                false,
                 true,
-                true,
-                false
+                true
             ]
         },
         {
             "dist": 2,
             "id": 3,
-            "label": "OR",
+            "label": "AND",
             "type": "gate",
             "valuation": [
-                false,
-                true,
                 true,
                 false,
+                false,
+                true,
                 true,
                 false,
                 false,
@@ -135,24 +91,8 @@
             ]
         },
         {
-            "dist": 3,
+            "dist": 4,
             "id": 4,
-            "label": "OR",
-            "type": "gate",
-            "valuation": [
-                true,
-                false,
-                false,
-                true,
-                true,
-                false,
-                false,
-                true
-            ]
-        },
-        {
-            "dist": 6,
-            "id": 5,
             "label": "A",
             "type": "input",
             "valuation": [
@@ -167,8 +107,8 @@
             ]
         },
         {
-            "dist": 6,
-            "id": 6,
+            "dist": 4,
+            "id": 5,
             "label": "B",
             "type": "input",
             "valuation": [
@@ -183,7 +123,23 @@
             ]
         },
         {
-            "dist": 6,
+            "dist": 2,
+            "id": 6,
+            "label": "AND",
+            "type": "gate",
+            "valuation": [
+                true,
+                false,
+                true,
+                false,
+                false,
+                true,
+                false,
+                true
+            ]
+        },
+        {
+            "dist": 4,
             "id": 7,
             "label": "CIN",
             "type": "input",
@@ -199,114 +155,18 @@
             ]
         },
         {
-            "dist": 2,
-            "id": 8,
-            "label": "NOT",
-            "type": "gate",
-            "valuation": [
-                true,
-                true,
-                true,
-                true,
-                false,
-                false,
-                false,
-                false
-            ]
-        },
-        {
-            "dist": 3,
-            "id": 9,
-            "label": "OR",
-            "type": "gate",
-            "valuation": [
-                false,
-                false,
-                false,
-                false,
-                true,
-                true,
-                true,
-                true
-            ]
-        },
-        {
-            "dist": 4,
-            "id": 10,
-            "label": "AND",
-            "type": "gate",
-            "valuation": [
-                true,
-                false,
-                false,
-                true,
-                true,
-                false,
-                false,
-                true
-            ]
-        },
-        {
-            "dist": 4,
-            "id": 11,
-            "label": "AND",
-            "type": "gate",
-            "valuation": [
-                false,
-                true,
-                true,
-                false,
-                true,
-                false,
-                false,
-                true
-            ]
-        },
-        {
-            "dist": 5,
-            "id": 12,
-            "label": "OR",
-            "type": "gate",
-            "valuation": [
-                true,
-                false,
-                false,
-                true,
-                true,
-                false,
-                false,
-                true
-            ]
-        },
-        {
             "dist": 1,
-            "id": 13,
-            "label": "AND",
-            "type": "gate",
-            "valuation": [
-                false,
-                true,
-                true,
-                false,
-                true,
-                false,
-                false,
-                true
-            ]
-        },
-        {
-            "dist": 2,
-            "id": 14,
+            "id": 8,
             "label": "AND",
             "type": "gate",
             "valuation": [
                 true,
-                false,
-                false,
-                true,
                 true,
                 false,
                 false,
+                false,
+                false,
+                true,
                 true
             ]
         }
