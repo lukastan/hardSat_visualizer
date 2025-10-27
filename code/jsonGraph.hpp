@@ -35,10 +35,10 @@ struct JsonGraph {
             bool evalR = evaluate(as<Binary>(f).right, v, vId);
             bool value = false;
             switch(as<Binary>(f).type) {
-                case Binary::And:  value = evalL && evalR;
-                case Binary::Or:   value = evalL || evalR;
-                case Binary::Impl: value = !evalL || evalR;
-                case Binary::Eq:   value = evalL == evalR;
+                case Binary::And:  value = evalL && evalR; break;
+                case Binary::Or:   value = evalL || evalR; break;
+                case Binary::Impl: value = !evalL || evalR; break;
+                case Binary::Eq:   value = evalL == evalR; break;
             }
             int nodeId = gateIds[f.get()];
             truthVectors[nodeId][vId] = value;
