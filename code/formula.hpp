@@ -95,4 +95,14 @@ void getAtoms(const FormulaPtr& f, AtomSet& atoms) {
     }
 }
 
+FormulaPtr make_miter(const FormulaPtr& l, const FormulaPtr& r) {
+    FormulaPtr notl = ptr(Not{l});
+    FormulaPtr notr = ptr(Not{r});
+
+    FormulaPtr half1 = ptr(Binary{Binary::And, l, notr});
+    FormulaPtr half2 = ptr(Binary{Binary::And, notl, r});
+
+    return ptr(Binary{Binary::Or, half1, half2});
+}
+
 #endif

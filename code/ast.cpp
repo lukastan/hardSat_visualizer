@@ -13,8 +13,10 @@ int main() {
     std::getline(std::cin, s);
     int n_outs = stoi(s);
 
-    if(n_outs <= 0)
+    if(n_outs <= 0) {
         std::cout << "Nothing to solve!" << std::endl;
+        return 0;
+    }
 
     std::cout << "Rules:\n() allowed\nletters for Atoms\n~ = NOT\n& = AND\n| = OR\n" << std::endl;
 
@@ -34,6 +36,13 @@ int main() {
         //Parsing g
         Parser p_g(g_string);
         FormulaPtr g = p_g.parse_string_into_formula();
+
+        //(a | b) & c
+        //(a | c) & (b | c)
+        std::cout << print(f) << std::endl;
+        std::cout << print(g) << std::endl;
+        print(cnf(f));
+        print(cnf(g));
 
         //Graph showcase
         JsonGraph f_graph;

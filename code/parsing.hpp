@@ -21,16 +21,6 @@ struct Parser {
         return false;
     }
 
-    bool peek(char c) {
-        skip();
-        
-        if(pos < s.size() && s[pos] == c) {
-            return true;
-        }
-
-        return false;
-    }
-
     FormulaPtr parse_atom() {
         skip();
         
